@@ -8,16 +8,18 @@ channels '#catalyst';
 
 # you can set message via the command line with --message [msg]
 has message => (
-    isa => 'Str',
-    is  => 'rw',
-    default =>
-      'This channel left intentionally empty. Go to #catalyst on irc.perl.org',
+    isa     => 'Str',
+    is      => 'rw',
+    default => q[This channel is an empty redirect]
+      . q[ - you need to connect to irc.perl.org #catalyst]
+      . q[ - if you're using mibbit you can do this by selecting 'other']
+      . q[ and then typing irc.perl.org into the text box],
 );
 
 event irc_join => sub {
     my ( $self, $nickstr, $channel ) = @_[ OBJECT, ARG0, ARG1 ];
     my ($nick) = split /!/, $nickstr;
-    $self->privmsg( $channel => "$nick: ${ \$self->message }")
+    $self->privmsg( $channel => "$nick: ${ \$self->message }" )
       unless $nickstr =~ /^mst/;
 };
 
