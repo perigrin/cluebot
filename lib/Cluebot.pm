@@ -1,9 +1,6 @@
 package Cluebot;
 use Moses;
-
 our $VERSION = '0.0.1';
-
-use MooseX::AttributeHelpers;
 
 server 'irc.freenode.net';
 nickname 'cluebot';
