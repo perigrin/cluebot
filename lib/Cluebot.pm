@@ -16,7 +16,8 @@ has message => (
 
 event irc_join => sub {
     my ( $self, $nickstr, $channel ) = @_[ OBJECT, ARG0, ARG1 ];
-    $self->privmsg( $channel => $self->message )
+    my ($nick) = split /!/, $nickstr;
+    $self->privmsg( $channel => "$nick: ${ \$self->message }")
       unless $nickstr =~ /^mst/;
 };
 
